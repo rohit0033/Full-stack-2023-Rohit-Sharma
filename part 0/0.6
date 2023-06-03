@@ -1,0 +1,29 @@
+```mermaid
+sequenceDiagram
+    Title: 0.6: new note
+
+    loop POST Method
+        browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+        server-->browser: HTML
+        browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+        server-->browser: main.css
+        browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+        server-->browser: main.js
+
+        note right of browser: browser starts executing js code that requests JSON data from server
+
+        browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+        server-->browser: [{ content: "Rohit sharma", date: "2023-06-03" }, ...]
+
+        note right of browser: browser executes the event handler that renders notes to display
+        
+        browser->server: HTTP POST { content: "single page app does not reload the whole page", date: "2023-06-03" }
+
+    note over browser: browser js event handler stop to reload the page
+
+    server-->browser: [{ content: "Rohit Sharma ", date: "2023-06-03" }, ..., { content: "single page app does not reload the whole page", date: "2023-06-03" }]
+
+    note over browser: browser executes the event handler that renders notes to display
+
+        
+    end
